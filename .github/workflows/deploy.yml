@@ -3,14 +3,14 @@ name: Deploy Automático a AWS
 on:
   push:
     branches:
-      - main  # Cambia por master si es tu rama
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Conectarse a AWS y hacer Git Pull
+    - name: Conectarse a AWS y actualizar la App
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.AWS_HOST }}
@@ -18,10 +18,15 @@ jobs:
         key: ${{ secrets.AWS_SSH_KEY }}
         port: 22
         script: |
-          # 1. Entrar a la carpeta
+          # 1. Entrar a la carpeta de tu proyecto en AWS
           cd /home/ubuntu/ProductosF
           
-          # 2. Actualizar el código
+          # 2. Bajar el cambio de App.jsx de GitHub
           git pull origin main
           
-          echo "¡El código se actualizó correctamente en AWS!"
+          # 3. Compilar React para que Nginx muestre los cambios
+          echo "Compilando el frontend con React..."
+          npm install
+          npm run build
+          
+          echo "¡Despliegue y compilación completados con éxito!"
