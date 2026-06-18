@@ -9,7 +9,6 @@ function ProductoLista({ productos, alEditar, alEliminar }) {
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Precio</th>
-            <th>Stock</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -17,10 +16,9 @@ function ProductoLista({ productos, alEditar, alEliminar }) {
           {productos.map((producto) => (
             <tr key={producto.id}>
               <td>{producto.id}</td>
-              <td>{producto.nombre}</td>
+              <td>{producto.nombre} (${producto.stock})</td>
               <td>{producto.descripcion}</td>
               <td>${producto.precio}</td>
-              <td>{producto.stock}</td>
               <td>
                 <button 
                   onClick={() => alEditar(producto)} 
