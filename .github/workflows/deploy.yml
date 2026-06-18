@@ -15,7 +15,7 @@ jobs:
       with:
         host: ${{ secrets.AWS_HOST }}
         username: ${{ secrets.AWS_USER }}
-        key: ${{ secrets.AWS_KEY }}
+        key: ${{ secrets.AWS_SSH_KEY }}
         port: 22
         script: |
           # 1. Entrar a la carpeta de tu proyecto en AWS
