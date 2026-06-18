@@ -3,14 +3,14 @@ name: Deploy Automático a AWS
 on:
   push:
     branches:
-      - main  # Cambia por 'master' si esa es tu rama principal en GitHub
+      - main  # Cambia por master si es tu rama
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Conectarse a AWS y actualizar la App
+    - name: Conectarse a AWS y hacer Git Pull
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.AWS_HOST }}
@@ -18,24 +18,10 @@ jobs:
         key: ${{ secrets.AWS_SSH_KEY }}
         port: 22
         script: |
-          # 1. Entrar a la carpeta de tu proyecto en AWS
-          # (REEMPLAZA /home/ubuntu/tu-proyecto por la ruta real en tu servidor)
+          # 1. Entrar a la carpeta
           cd /home/ubuntu/ProductosF
           
-          # 2. Bajar los cambios nuevos de GitHub
+          # 2. Actualizar el código
           git pull origin main
           
-          # 3. Si hiciste cambios en React, descomenta las líneas de abajo para compilar:
-          # npm install
-          # npm run build
-          
-          # 4. Reiniciar el backend con Gunicorn de forma segura
-          echo "Reiniciando servidor con Gunicorn..."
-          
-          # Busca si ya hay un proceso de gunicorn corriendo y lo detiene para evitar conflictos
-          pkill -f "gunicorn" || true
-          
-          # Levanta Gunicorn en segundo plano (modo daemon) en el puerto 5000
-          gunicorn --bind 0.0.0.0:5000 app:app --daemon
-          
-          echo "¡Despliegue completado con éxito!"
+          echo "¡El código se actualizó correctamente en AWS!"
