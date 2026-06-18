@@ -50,7 +50,7 @@ function App() {
   return (
     <div style={{ padding: '20px', fontFamily: 'sans-serif', maxWidth: '900px', margin: '0 auto' }}>
       <h1 style={{ textAlign: 'center', borderBottom: '2px solid #ccc', paddingBottom: '10px' }}>
-        Dashboard de Inventario AWS Editado Local
+        Dashboard de Inventario
       </h1>
       
       <ProductoForm 
